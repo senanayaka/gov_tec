@@ -14,6 +14,9 @@ export class CreateUserHandler
 
   async execute(command: CreateUserCommand) {
    
+    console.log('command--->>>>>' , command)
+
+
     const user = this.publisher.mergeObjectContext(
       await this.repository.findOneById(1),
     );

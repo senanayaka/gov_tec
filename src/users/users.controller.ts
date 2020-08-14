@@ -7,7 +7,6 @@ import { CreateUserCommand } from './commands/impl/create-user.command';
 
 
 @Controller('users')
-@ApiTags('Users')
 export class UsersController {
   constructor(private readonly commandBus: CommandBus,
               private readonly queryBus: QueryBus) { }
@@ -15,9 +14,12 @@ export class UsersController {
   /* Create User */
   /*--------------------------------------------*/
 
+  @ApiOperation({ summary: 'Create User' })
+  @ApiResponse({ status: 200, description: 'Create User.' })
   @Post('/create')
   async createUser(@Param('id') id: string, @Body() dto: UserDto) {
-    return this.commandBus.execute(new CreateUserCommand(id));
+      console.log('hit');
+    //  return this.commandBus.execute(new CreateUserCommand(id));
   }
 
   @Post('/update')
@@ -30,9 +32,15 @@ export class UsersController {
     return this.commandBus.execute(new CreateUserCommand(id));
   }
 
-  @Post('/find')
-  async findUser(@Param('id') id: string, @Body() dto: UserDto) {
-    return this.commandBus.execute(new CreateUserCommand(id));
+  // @ApiOperation({ summary: 'Find User' })
+  // @ApiResponse({ status: 200, description: 'Find User.' })
+  @Get()
+  async findUser() {
+   // return this.commandBus.execute(new CreateUserCommand(id));
+   console.log('hello world');
+   return 'Hello world findUserfindUser';
   }
+
+
 
 }
