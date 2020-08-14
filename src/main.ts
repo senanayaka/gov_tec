@@ -9,12 +9,15 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   const documentOptions = new DocumentBuilder()
-    .setTitle('govtec')
-    .setDescription('Users API Microservice')
-    .setVersion('1.0')
-    .setBasePath('/api')
-    .build();
+                          .setTitle('govtec')
+                          .setDescription('Users API Microservice')
+                          .setVersion('1.0')
+                          .setBasePath('/api')
+                          .build();
+
+  /* Swageger configurations */                        
   const document = SwaggerModule.createDocument(app, documentOptions);
+
   const validationOptions = {
     skipMissingProperties: true,
     validationError: { target: false },
@@ -23,11 +26,8 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe(validationOptions));
   app.setGlobalPrefix('v1');
   
-  // app.register(fastifyCors, {
-  //   origin: true,
-  // });
-
   SwaggerModule.setup('/api', app, document);
+  /* Swageger configurations ends */
 
   await app.listen(3000);
 
