@@ -1,0 +1,19 @@
+{
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "username": "root",
+    "password": "Qaz1Wsx2",
+    "database": "gov_tec_db",
+    "synchronize": true,
+    "logging": false,
+    "entities": [
+       "src/api/**/**/*.ts"
+    ],
+    "migrations": [
+       "src/api/**/**/*.ts"
+    ],
+    "subscribers": [
+       "src/api/**/**/*.ts"
+    ]
+ }
