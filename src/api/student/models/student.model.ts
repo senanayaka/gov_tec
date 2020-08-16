@@ -3,7 +3,7 @@ import { StudentCreatedEvent } from '../events/impl/student-created.event';
 import { StudentCommonEvent } from '../events/impl/student-common.event';
 import { StudentSuspendEvent } from '../events/impl/student-suspend.event';
 import { NotificationEvent } from '../events/impl/notification.event';
-import { getRepository } from "typeorm";
+import { getRepository, In } from "typeorm";
 import { Student } from "./student.entity";
 
 export class StudentModel extends AggregateRoot {
@@ -13,16 +13,16 @@ export class StudentModel extends AggregateRoot {
     constructor() {
 
       super();
-      const userRepository = getRepository(Student);
+      const studentRepository = getRepository(Student);
       
     }
 
     async createStudent(studentDto){
       
-      const userRepository = getRepository(Student);
+      const studentRepository = getRepository(Student);
 
       try {
-          const studentUpdate = await userRepository.save( studentDto );  
+          const studentUpdate = await studentRepository.save( studentDto );  
 
           this.apply(new StudentCreatedEvent(studentDto.student));
 
@@ -35,39 +35,60 @@ export class StudentModel extends AggregateRoot {
         }
       }
 
-    async suspendStudent(studentDto) {
-
+    async getCommonStudents(TeacherDto){
+       
+      if(!Array.isArray(TeacherDto)){
+        TeacherDto = [TeacherDto];
+      }
       const userRepository = getRepository(Student);
       
-      console.log('studentDto.student' , studentDto.student)
+      return await userRepository.find({ teacherEmail : In(TeacherDto)});
 
-      let studentToUpdate = await userRepository.findOne({ email : studentDto.student });
-
-      console.log('studentToUpdate' , studentToUpdate)
-
-      studentToUpdate.suspend = 'true';
-
-      this.apply(new StudentSuspendEvent(studentDto.student));
-
-      return await userRepository.save(studentToUpdate);
-       
     }
 
 
-     async notification(data) {
+    async suspendStudent(studentDto) {
 
-      console.log('data::::' , data)
+      const studentRepository = getRepository(Student);
+
+      let studentToUpdate =  await studentRepository.find({ email : studentDto.student });
+  
+      if(studentToUpdate != undefined){
+
+          const updatedDataArray = studentToUpdate.map((student)=>{
+              let temp = Object.assign({}, student);
+              temp.suspend = 'true';
+              return temp;
+          })
+      
+       this.apply(new StudentSuspendEvent(updatedDataArray));
+        
+       return await studentRepository.save(updatedDataArray);
+
+      }else{
+
+        return 'No Record Found To Update'
+
+      }
+      
+    }
 
 
-      // const userRepository = getRepository(Student);
-      // let studentToUpdate = await userRepository.findOne({ email : studentDto.student });
-      // studentToUpdate.suspend = 'true';
+     async notification(studentDto) {
 
-      // this.apply(new StudentSuspendEvent(studentDto.student));
-
-      // return await userRepository.save(studentToUpdate);
-
-      //   this.apply(new NotificationEvent(data));
+      const studentRepository = getRepository(Student);
+    
+      let studentToUpdate = await studentRepository.find({ email : In(studentDto)});
+ 
+      const updatedDataArray = studentToUpdate.map((student)=>{
+          let temp = Object.assign({}, student);
+          temp.notified = 'true';
+          return temp;
+      })
+ 
+      this.apply(new NotificationEvent(studentDto));
+  
+      return await studentRepository.save(updatedDataArray);
 
      }
     

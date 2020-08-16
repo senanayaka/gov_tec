@@ -16,7 +16,8 @@ async function bootstrap() {
                           .setDescription('Gov-Tec API')
                           .setVersion('1.0')
                           .setBasePath('/api')
-                          .build();               
+                          .build(); 
+                                        
   const document = SwaggerModule.createDocument(app, documentOptions);
   const validationOptions = {
     skipMissingProperties: true,

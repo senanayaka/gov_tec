@@ -12,9 +12,10 @@ module.exports = {
     'prettier/@typescript-eslint',
   ],
   root: true,
-  env: {
-    node: true,
-    jest: true,
+  "env": {
+    "es2020": true,
+    "node": true,
+    "jest": true
   },
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',
@@ -22,3 +23,4 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
   },
 };
+

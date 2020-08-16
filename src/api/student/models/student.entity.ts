@@ -28,7 +28,7 @@ export class Student{
 
   @Column()
   @Length(4, 20)
-  readonly notified!: string;
+  notified!: string;
 
   @Column()
   @CreateDateColumn()

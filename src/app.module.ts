@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
-import { UsersModule } from './api/user/users.module';
 import { StudentModule } from './api/student/student.module';
-import  { dataBase }  from './config';
+import { dataBase }  from './config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Student } from './api/student/models/student.entity';
 
 
 @Module({
-  imports: [UsersModule, 
+  imports: [
     StudentModule,
     TypeOrmModule.forRoot({
             type: "mysql",

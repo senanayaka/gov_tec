@@ -10,27 +10,20 @@ export class StudentRepository extends Repository<Student> {
   async createStudent(studentDto:StudentDto) : Promise<void> {
 
     const student = new StudentModel();
-
     return await student.createStudent(studentDto);  
 
   }
  
   async getCommonStudents({ TeacherDto } :any) {
 
-    //Todo change to model
-    if(!Array.isArray(TeacherDto)){
-      TeacherDto = [TeacherDto];
-    }
+    const student = new StudentModel();
+    return await student.getCommonStudents(TeacherDto);
 
-    const userRepository = getRepository(Student);
-
-    return await userRepository.find({ teacherEmail : In(TeacherDto)});
   }
 
   async suspendStudent(studentDto) {
 
     const student = new StudentModel();
-
     return await student.suspendStudent(studentDto);
 
     
@@ -40,7 +33,6 @@ export class StudentRepository extends Repository<Student> {
   async notifyStudent(studentDto) {
 
     const student = new StudentModel();
-    
     return await student.notification(studentDto);
 
   }

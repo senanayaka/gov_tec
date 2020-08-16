@@ -12,32 +12,23 @@ export class CreateStudentHandler implements ICommandHandler<CreateStudentComman
   async execute( command: CreateStudentCommand) {
    
     const {studentDto} = command;
-
     let teacher = studentDto.teacher;
-
-    let Studs = studentDto.students
- 
+    let Studs = studentDto.students;
+    
+    //create student object 
     let students = await Studs.map(stu => (
               { email : stu,
                 teacherEmail: teacher, 
                 suspend : 'false', 
                 notified: 'false',
-                createdAt: this.dateTime,
-                updatedAt : this.dateTime 
+                createdAt: new Date(),
+                updatedAt : new Date() 
               }));
- 
+
+    //insert data to database
     return this.repository.createStudent(students).then(()=>'Successfully Registered')
                                                   .catch((error)=>error);
       
   }
-   
 
-  dateTime = new Date().toLocaleDateString(undefined, {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-  })
 }

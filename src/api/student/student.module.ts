@@ -6,16 +6,15 @@ import { StudentController } from './controllers/student.controller';
 import { StudentRepository } from './repository/student.repository';
 import { StudentService } from './services/student.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Student } from './models/student.entity';
-
 @Module({
   imports: [CqrsModule, TypeOrmModule.forRoot()],
   controllers: [StudentController],
   providers: [
     StudentRepository,
+    StudentService,
     ...CommandHandlers,
-    ...EventHandlers,
-    StudentService
+    ...EventHandlers
   ],
 })
 export class StudentModule{}
+

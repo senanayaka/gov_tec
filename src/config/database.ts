@@ -1,5 +1,4 @@
 import { createConnection } from 'typeorm';
-import { UserEntity } from '../api/user/entity/UserEntity';
 import { Student } from '../api/student/models/student.entity';
 
 export class database{

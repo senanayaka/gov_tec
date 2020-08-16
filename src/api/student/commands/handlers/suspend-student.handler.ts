@@ -11,7 +11,7 @@ export class SuspendStudentHandler implements ICommandHandler<SuspendStudentComm
               }
 
   async execute(command: SuspendStudentCommand) {
-   
+    
     return await this.repository.suspendStudent(command.studentDto);
 
   }
