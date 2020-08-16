@@ -1,18 +1,15 @@
 import { MigrationInterface, QueryRunner, getRepository } from "typeorm";
-import { User } from "../models";
+import { Student } from "../api/student/models/student.entity";
 
 export class CreateAdminUser1547919837483 implements MigrationInterface {
   
   public async up(queryRunner: QueryRunner): Promise<any> {
 
-    let user = new User();
-        user.username = "admin";
-        user.password = "admin";
-        user.hashPassword();
-        user.role = "ADMIN";
+    let student = new Student();
+      
 
-    const userRepository = getRepository(User);
-    await userRepository.save(user);
+    const userRepository = getRepository(Student);
+    await userRepository.save(student);
 
   }
 

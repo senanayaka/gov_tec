@@ -7,13 +7,11 @@
     "database": "gov_tec_db",
     "synchronize": true,
     "logging": false,
-    "entities": [
-       "src/api/**/**/*.ts"
-    ],
+    "entities": ["src/**/**/**/*.entity{.ts,.js}"],
     "migrations": [
-       "src/api/**/**/*.ts"
+       "src/migration/*.ts"
     ],
     "subscribers": [
-       "src/api/**/**/*.ts"
+       "src/subscriber/**/*.ts"
     ]
  }

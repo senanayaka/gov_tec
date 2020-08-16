@@ -11,8 +11,10 @@ export class StudentModel extends AggregateRoot {
   [x: string]: any;
 
     constructor() {
+
       super();
       const userRepository = getRepository(Student);
+      
     }
 
     async createStudent(studentDto){
@@ -20,20 +22,29 @@ export class StudentModel extends AggregateRoot {
       const userRepository = getRepository(Student);
 
       try {
-         
-          const studentUpdate = await userRepository.save( studentDto );   
+          const studentUpdate = await userRepository.save( studentDto );  
+
           this.apply(new StudentCreatedEvent(studentDto.student));
+
           return studentUpdate;
 
         } catch (e) {
+
           return e;
+
         }
       }
 
-    async suspendStudent({studentDto}){
+    async suspendStudent(studentDto) {
 
       const userRepository = getRepository(Student);
+      
+      console.log('studentDto.student' , studentDto.student)
+
       let studentToUpdate = await userRepository.findOne({ email : studentDto.student });
+
+      console.log('studentToUpdate' , studentToUpdate)
+
       studentToUpdate.suspend = 'true';
 
       this.apply(new StudentSuspendEvent(studentDto.student));
@@ -43,10 +54,20 @@ export class StudentModel extends AggregateRoot {
     }
 
 
-     async notification(data){
+     async notification(data) {
+
+      console.log('data::::' , data)
 
 
-        this.apply(new NotificationEvent(data));
+      // const userRepository = getRepository(Student);
+      // let studentToUpdate = await userRepository.findOne({ email : studentDto.student });
+      // studentToUpdate.suspend = 'true';
+
+      // this.apply(new StudentSuspendEvent(studentDto.student));
+
+      // return await userRepository.save(studentToUpdate);
+
+      //   this.apply(new NotificationEvent(data));
 
      }
     

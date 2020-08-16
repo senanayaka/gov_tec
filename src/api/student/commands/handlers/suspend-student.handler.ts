@@ -1,20 +1,18 @@
 import { EventPublisher, ICommandHandler, CommandHandler } from '@nestjs/cqrs';
 import { SuspendStudentCommand } from '../impl/suspend-student.command';
 import { StudentRepository } from '../../repository/student.repository';
-import { Logger } from '@nestjs/common';
 
 @CommandHandler(SuspendStudentCommand)
-export class SuspendStudentHandler
-  implements ICommandHandler<SuspendStudentCommand> {
+export class SuspendStudentHandler implements ICommandHandler<SuspendStudentCommand> {
 
-  constructor(
-    private readonly repository: StudentRepository,
-    private readonly publisher: EventPublisher,
-  ) {}
+  constructor(private readonly repository: StudentRepository,
+              private readonly publisher: EventPublisher) {
+
+              }
 
   async execute(command: SuspendStudentCommand) {
- 
-    return await this.repository.suspendStudent(command);
+   
+    return await this.repository.suspendStudent(command.studentDto);
 
   }
 

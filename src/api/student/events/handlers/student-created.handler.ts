@@ -7,10 +7,8 @@ import { Logger } from '@nestjs/common';
 export class StudentCreatedHandler  implements IEventHandler<StudentCreatedEvent> {
 
   handle(event: StudentCreatedEvent) {
-
-    console.log( 'StudentCreatedEvent>>>>--->>>>>>'  , event);  
-    
- 
+    //Todo
+    console.log( 'StudentCreatedHandler'  , event);  
 
   }
 

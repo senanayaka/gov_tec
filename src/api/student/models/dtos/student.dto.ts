@@ -14,6 +14,8 @@ export class StudentDto {
   readonly teacherEmail!: string;
   @IsString()
   readonly suspend!: string;
+  @IsString()
+  readonly notified!: string;
   @IsDate()
   readonly createdAt!: string;
   @IsDate()

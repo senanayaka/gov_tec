@@ -7,37 +7,41 @@ import { EntityRepository, Repository, getRepository, In} from 'typeorm';
 @EntityRepository(Student)
 export class StudentRepository extends Repository<Student> {
   
-  async createStudent(studentDto:StudentDto) {
-  
+  async createStudent(studentDto:StudentDto) : Promise<void> {
+
     const student = new StudentModel();
-    return await student.createStudent(studentDto);
-     
+
+    return await student.createStudent(studentDto);  
+
   }
  
   async getCommonStudents({ TeacherDto } :any) {
-    
+
+    //Todo change to model
     if(!Array.isArray(TeacherDto)){
       TeacherDto = [TeacherDto];
     }
+
     const userRepository = getRepository(Student);
+
     return await userRepository.find({ teacherEmail : In(TeacherDto)});
- 
   }
 
   async suspendStudent(studentDto) {
 
     const student = new StudentModel();
-    student.suspendStudent(studentDto);
-    return student;
 
+    return await student.suspendStudent(studentDto);
+
+    
   }
  
 
   async notifyStudent(studentDto) {
-    
+
     const student = new StudentModel();
-    student.notification(studentDto);
-    return student;
+    
+    return await student.notification(studentDto);
 
   }
 

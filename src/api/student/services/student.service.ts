@@ -14,29 +14,42 @@ export class StudentService {
   constructor(private readonly commandBus: CommandBus) {}
 
   async createStudent(student: StudentDto) {
+
     return await this.commandBus.execute(
       new CreateStudentCommand(student),
     );
+
   }
 
   async getCommonStudent(teacher: TeacherDto) {
+
     return await this.commandBus.execute(
       new CommonStudentCommand(teacher),
     );
+
   }
 
   async suspendStudent(student: StudentIdRequestParamsDto) {
+
     return await this.commandBus.execute(
       new SuspendStudentCommand(student),
     );
-  }
-  async notifyStudent(student: string) {
-    return await this.commandBus.execute(
-      new NotificationCommand(student),
-    );
+
   }
 
-  async findStudent() {
-    // TODO
+  async notifyStudent(student: any) {
+
+    const regx = /@(.*)\b/g;
+
+    const matches = regx.exec(student.notification);
+
+    const splitedArray = matches[0].split(" ").map((email)=>email.substring(1));
+  
+    console.log('splitedArray' , splitedArray)
+
+    return await this.commandBus.execute(
+      new NotificationCommand(splitedArray));
+
   }
+
 }

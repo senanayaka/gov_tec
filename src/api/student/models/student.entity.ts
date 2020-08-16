@@ -27,6 +27,10 @@ export class Student{
   suspend: string;
 
   @Column()
+  @Length(4, 20)
+  readonly notified!: string;
+
+  @Column()
   @CreateDateColumn()
   createdAt: string;
 
