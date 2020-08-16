@@ -2,15 +2,14 @@ import { createConnection } from 'typeorm';
 import { Student } from '../api/student/models/student.entity';
 
 export class database{
-
     static connect = (): Promise<any>=>{
       return createConnection({
             type: "mysql",
-            host: "localhost",
-            port: 3306,
-            username: "root",
-            password: "Qaz1Wsx2",
-            database: "gov_tec_db",
+            host: process.env.HOST,
+            port:  parseInt(process.env.DATABASE_PORT, 10),
+            username: process.env.USER_NAME,
+            password: process.env.PASSWORD,
+            database: process.env.DATA_BASE,
             entities: [
                 Student
             ],
