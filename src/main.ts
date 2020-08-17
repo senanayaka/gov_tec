@@ -8,9 +8,9 @@ import fastifyCors from 'fastify-cors';
 
 async function bootstrap() {
 
-   const app = await NestFactory.create<NestFastifyApplication>(AppModule,new FastifyAdapter());
+   const app = await NestFactory.create<NestFastifyApplication>(AppModule);
   
-  /* ---------------Swageger configurations-------------------- */     
+  /* ---------------Swagger configurations-------------------- */     
   const documentOptions = new DocumentBuilder()
                           .setTitle('govtec')
                           .setDescription('Gov-Tec API')
@@ -25,13 +25,13 @@ async function bootstrap() {
   };
   app.useGlobalPipes(new ValidationPipe(validationOptions));
   app.setGlobalPrefix('api');
-  app.register(fastifyCors, {origin: true});
 
   SwaggerModule.setup('/', app, document);
   
-  /* -------------------Swageger configurations ends--------------------- */
+  /* -------------------Swagger configurations ends--------------------- */
 
   await app.listen(3000);
 
 }
+
 bootstrap();
