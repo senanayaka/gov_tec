@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { StudentModule } from './api/student/student.module';
 import { dataBase }  from './config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Student } from './api/student/models/student.entity';
 import { ConfigModule } from '@nestjs/config';
 import configuration from './config/configuration';
 

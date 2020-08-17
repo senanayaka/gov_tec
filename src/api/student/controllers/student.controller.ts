@@ -17,6 +17,7 @@ export class StudentController {
   @Post('/register')
   async createStudent(@Body() dto: StudentDto): Promise<StudentDto> {
 
+    console.log('dto--->>>' , dto)
     return this.studentService.createStudent(dto);
 
   }

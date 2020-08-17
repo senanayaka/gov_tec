@@ -1,29 +1,30 @@
-import { Test, TestingModule } from "@nestjs/testing";
-import { StudentService } from '../api/student/services/student.service';
+import { StudentController as CatsController } from '../api/student/controllers/student.controller';
+import { StudentService as CatsService } from '../api/student/services/student.service';
+import { CommandBus } from '@nestjs/cqrs';
 
-describe("-- Client Controller --", () => {
-  let studentService: StudentService;
-  let module: TestingModule;
-  beforeAll(async () => {
-   module = await Test.createTestingModule({
-     controllers: [],
-     providers: [
-      StudentService
-     ]
-    }).compile();
-    studentService = module.get<StudentService>(StudentService);
-   
+describe('CatsController', () => {
+  let catsController: CatsController;
+  let catsService: CatsService;
+  let commandBus: CommandBus;
+
+  beforeEach(() => {
+    catsService = new CatsService(commandBus);
+    catsController = new CatsController(catsService);
   });
 
-  describe("* Find One By Id", () => {
-    it("should return an entity of client if successful", async () => {
-      const mockNumberToSatisfyParameters = 0;
-      let expectedResult = 'Successfully Registered'
-      jest.spyOn(studentService, "createStudent").mockResolvedValue(expectedResult);
+  describe('#Test Create Student', () => {
+    it('should return an array of cats', async () => {
+      const result = ['Successfully Registered'];
+      jest.spyOn(catsService, 'createStudent').mockImplementation(async() => result);
 
-     // expect(await clientController.findOneById(mockNumberToSatisfyParameters)).toBe(expectedResult);
-
-    }); 
+      expect(await catsController.createStudent({
+        "teacher": "parakrama@example.com",
+        "students":
+          [
+            "studentjon@example.com",
+            "studenthonbcc@example.com"
+          ]
+      })).toEqual(['Successfully Registered']);
+    });
   });
- 
 });
