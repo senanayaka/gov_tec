@@ -27,5 +27,23 @@ describe('CatsController', () => {
     });
   });
 
+  describe('#Test Create Student', () => {
+    it('should return an array of cats', async () => {
+      const result =  {
+        "id": 1,
+        "email": "studentjon@example.com",
+        "teacherEmail": "parakrama@example.com",
+        "suspend": "false",
+        "notified": "false",
+        "createdAt": "2020-08-16T20:24:53.474Z",
+        "updatedAt": "2020-08-16T20:24:53.474Z"
+      };
 
+      jest.spyOn(studentService, 'createStudent').mockImplementation(async() => result);
+
+      expect(await studentController.getCommonStudents({
+        "teacher": "parakrama@example.com",
+      })).toContain(result);
+    });
+  });
 });
