@@ -13,7 +13,7 @@ describe('CatsController', () => {
     studentController = new StudentController(studentService);
   });
   describe('#Test Create Student', () => {
-    it('should return an array of cats', async () => {
+    it('#Should Return Success Message', async () => {
       const result = ['Successfully Registered'];
       jest.spyOn(studentService, 'createStudent').mockImplementation(async() => result);
 
@@ -21,7 +21,7 @@ describe('CatsController', () => {
 
     });
 
-    it('should return an array of cats', async () => {
+    it('#Should Return An Student Json', async () => {
      
       jest.spyOn(studentService, 'getCommonStudent').mockImplementation(async() => student_mock.student_result_mock_data);
 
