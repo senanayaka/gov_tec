@@ -1,23 +1,22 @@
-import { StudentController as CatsController } from '../api/student/controllers/student.controller';
-import { StudentService as CatsService } from '../api/student/services/student.service';
+import { StudentController  } from '../api/student/controllers/student.controller';
+import { StudentService   } from '../api/student/services/student.service';
 import { CommandBus } from '@nestjs/cqrs';
 
 describe('CatsController', () => {
-  let catsController: CatsController;
-  let catsService: CatsService;
+  let studentController: StudentController;
+  let studentService: StudentService;
   let commandBus: CommandBus;
 
   beforeEach(() => {
-    catsService = new CatsService(commandBus);
-    catsController = new CatsController(catsService);
+    studentService = new StudentService(commandBus);
+    studentController = new StudentController(studentService);
   });
-
   describe('#Test Create Student', () => {
     it('should return an array of cats', async () => {
       const result = ['Successfully Registered'];
-      jest.spyOn(catsService, 'createStudent').mockImplementation(async() => result);
+      jest.spyOn(studentService, 'createStudent').mockImplementation(async() => result);
 
-      expect(await catsController.createStudent({
+      expect(await studentController.createStudent({
         "teacher": "parakrama@example.com",
         "students":
           [
@@ -27,4 +26,6 @@ describe('CatsController', () => {
       })).toEqual(['Successfully Registered']);
     });
   });
+
+
 });
