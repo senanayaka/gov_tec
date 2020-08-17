@@ -1,6 +1,8 @@
 import { StudentController  } from '../api/student/controllers/student.controller';
 import { StudentService   } from '../api/student/services/student.service';
 import { CommandBus } from '@nestjs/cqrs';
+import *  as student_results_mock  from  './data/student_result_mock.json'
+import *  as student_request_mock  from  './data/student_request_mock_data.json'
 
 describe('CatsController', () => {
   let studentController: StudentController;
@@ -16,34 +18,20 @@ describe('CatsController', () => {
       const result = ['Successfully Registered'];
       jest.spyOn(studentService, 'createStudent').mockImplementation(async() => result);
 
-      expect(await studentController.createStudent({
-        "teacher": "parakrama@example.com",
-        "students":
-          [
-            "studentjon@example.com",
-            "studenthonbcc@example.com"
-          ]
-      })).toEqual(['Successfully Registered']);
+      expect(await studentController.createStudent(student_request_mock)).toEqual(['Successfully Registered']);
+
     });
-  });
 
-  describe('#Test Create Student', () => {
     it('should return an array of cats', async () => {
-      const result =  {
-        "id": 1,
-        "email": "studentjon@example.com",
-        "teacherEmail": "parakrama@example.com",
-        "suspend": "false",
-        "notified": "false",
-        "createdAt": "2020-08-16T20:24:53.474Z",
-        "updatedAt": "2020-08-16T20:24:53.474Z"
-      };
-
-      jest.spyOn(studentService, 'createStudent').mockImplementation(async() => result);
+     
+      jest.spyOn(studentService, 'getCommonStudent').mockImplementation(async() => student_results_mock);
 
       expect(await studentController.getCommonStudents({
         "teacher": "parakrama@example.com",
-      })).toContain(result);
+      })).toEqual(student_results_mock);
     });
+
   });
+
+  
 });

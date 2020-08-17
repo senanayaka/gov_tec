@@ -1,0 +1,9 @@
+{
+    "id": 1,
+    "email": "studentjon@example.com",
+    "teacherEmail": "parakrama@example.com",
+    "suspend": "false",
+    "notified": "false",
+    "createdAt": "2020-08-16T20:24:53.474Z",
+    "updatedAt": "2020-08-16T20:24:53.474Z"
+  }
