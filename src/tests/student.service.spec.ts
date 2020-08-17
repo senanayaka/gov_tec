@@ -30,6 +30,27 @@ describe('CatsController', () => {
       })).toEqual(student_mock.student_result_mock_data);
     });
 
+    it('#Should Return An Suspended Student Json', async () => {
+     
+      jest.spyOn(studentService, 'suspendStudent').mockImplementation(async() => student_mock.student_result_mock_data);
+
+      expect(await studentController.suspendStudent({
+        "student" : "studentjon@example.com"
+      })).toEqual(student_mock.student_result_mock_data);
+    });
+
+
+    it('#Should Return Notified Student Json', async () => {
+     
+      jest.spyOn(studentService, 'notifyStudent').mockImplementation(async() => student_mock.student_result_mock_data);
+
+      expect(await studentController.retrieveNotification({
+        "teacher":  "teacherken@example.com",
+        "notification": "Hello students! dddd @sstudenthonbcc@example.com @studentjon@example.com"
+      })).toEqual(student_mock.student_result_mock_data);
+    });
+
+
   });
 
   
