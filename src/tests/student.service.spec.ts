@@ -50,7 +50,6 @@ describe('CatsController', () => {
       })).toEqual(student_mock.student_result_mock_data);
     });
 
-
   });
 
   

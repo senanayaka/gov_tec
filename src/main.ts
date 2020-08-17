@@ -27,7 +27,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.register(fastifyCors, {origin: true});
 
-  SwaggerModule.setup('/api', app, document);
+  SwaggerModule.setup('/', app, document);
   
   /* -------------------Swageger configurations ends--------------------- */
 
