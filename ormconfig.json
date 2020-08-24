@@ -1,6 +1,6 @@
 {
     "type": "mysql",
-    "host": "database-1.cx95shfcmdtu.us-east-2.rds.amazonaws.com",
+    "host": "databasegove.cx95shfcmdtu.us-east-2.rds.amazonaws.com",
     "port": 3306,
     "username": "admin",
     "password": "Qaz1Wsx2",
